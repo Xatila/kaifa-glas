@@ -8,7 +8,9 @@ import {
   ModalBody,
   ModalFooter,
 } from "@chakra-ui/react";
+import { auto } from "@popperjs/core";
 import React, { useState } from "react";
+import useIsMobile from "../../hooks/useIsMobile";
 
 interface Product {
   id: number;
@@ -36,6 +38,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
   onAddToCart,
 }) => {
   const [quantity, setQuantity] = useState(1);
+  const isMobile = useIsMobile();
 
   const handleIncreaseQuantity = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
@@ -70,7 +73,19 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
               )}
             </div>
             <div className="col-md-6" style={{ padding: 25, fontSize: 18 }}>
-              {product?.description && <p>{product.description}</p>}
+              {product?.description && (
+                <p
+                  style={{
+                    padding: "8px",
+                    ...(isMobile && { maxHeight: 130 }),
+                    overflow: "auto",
+                    border: "2px solid #ccc",
+                    borderRadius: "8px",
+                  }}
+                >
+                  {product.description}
+                </p>
+              )}
               <p className="product-price">Цена: {7.99} лв.</p>
 
               <HStack style={{ padding: 10 }}>
