@@ -2,11 +2,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 50px;
+  padding: 0px;
 }
-
+.picture-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  background-image: linear-gradient(
+    to top,
+    #0e101f,
+    #3a3a47,
+    #6a6972,
+    #9d9ca1,
+    #d3d3d3
+  );
+}
 .wide-picture img {
-  margin-top: 50px;
+  margin-top: 80px;
   height: auto;
   border-radius: 10px;
   opacity: 0.88;
@@ -24,18 +36,14 @@
 }
 
 .profile-card {
-  width: 300px;
+  width: 1000px;
   padding: 20px;
-  margin: 0 10px 20px;
+  margin: 30px 10px 20px;
   background-color: #f2f2f2;
   text-align: center;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
-}
-
-.profile-card:hover {
-  transform: translateY(-5px);
 }
 
 .profile-card img {
@@ -103,7 +111,7 @@
     width: 100%;
     height: 150px;
   }
-  .component-wrapper {
-    padding: 10px;
+  .picture-container {
+    flex-direction: column;
   }
 }

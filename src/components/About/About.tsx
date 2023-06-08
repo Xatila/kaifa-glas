@@ -3,8 +3,9 @@ import ExpandableText from "./ExpandableText";
 import "./About.css";
 import { AboutText } from "../AboutText";
 import wide from "../../pictures/wide.jpg";
-import picture1 from "../../pictures/profile1.png";
-import picture2 from "../../pictures/profile2.jpg";
+import theGiff from "../../pictures/Aboutgiff.gif";
+import picture1 from "../../pictures/aboutPic1.jpg";
+import picture2 from "../../pictures/aboutPic2.jpg";
 
 const About = () => {
   useEffect(() => {
@@ -19,16 +20,17 @@ const About = () => {
         <h2>Какво е KAIFA GLASS?</h2>
         <ExpandableText>{AboutText}</ExpandableText>
       </div>
+      <div className="picture-container">
+        <img src={picture1} alt="" />
+        <h1 style={{ textAlign: "center", padding:10 }}>
+          Amazing Quality On Amazing Price, Welcome!
+        </h1>
+        <img src={picture2} alt="" />
+      </div>
       <div className="profile-cards">
         <div className="profile-card">
-          <img src={picture1} alt="Profile 1" />
-          <h3>Основател</h3>
-          <p>Кевин Балиев - основател на "KAIFA Glass"</p>
-        </div>
-        <div className="profile-card">
-          <img src={picture2} alt="Profile 2" />
-          <h3>Съосновател</h3>
-          <p>Александрина Иманова - съосновател на "KAIFA Glass"</p>
+          <img src={theGiff} alt="Giff" />
+          <h3>Наистина здрави</h3>
         </div>
       </div>
     </div>
