@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import logo from "../../pictures/logo.png";
+import ColorModeSwitch from "../ColorModeSwitch";
 
 const CustomNavbar = () => {
   const [isNavbarVisible, setNavbarVisible] = useState(true);
@@ -59,6 +60,8 @@ const CustomNavbar = () => {
               Instagram
             </NavDropdown.Item>
           </NavDropdown>
+
+          <ColorModeSwitch />
         </Nav>
       </Navbar.Collapse>
     </Navbar>
