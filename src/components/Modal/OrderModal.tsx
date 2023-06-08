@@ -21,7 +21,10 @@ const OrderModal = ({ data }: Props) => {
   const finalRef = React.useRef(null);
   return (
     <>
-      <Button colorScheme="green" onClick={onOpen}>
+      <Button
+        colorScheme={!!data.length ? "green" : "gray"}
+        onClick={() => !!data.length && onOpen()}
+      >
         Купи
       </Button>
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "./Navbar.css";
+import logo from "../../pictures/logo.png";
 
 const CustomNavbar = () => {
   const [isNavbarVisible, setNavbarVisible] = useState(true);
@@ -34,7 +34,7 @@ const CustomNavbar = () => {
     >
       <Navbar.Brand onClick={() => navigate("/")}>
         <img
-          src="pictures/logo.png"
+          src={logo}
           alt="Logo"
           className="navbar-logo"
           style={{ width: 40, height: 40 }}
