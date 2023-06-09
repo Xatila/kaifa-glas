@@ -3,6 +3,7 @@ import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import logo from "../../pictures/logo.png";
 import ColorModeSwitch from "../ColorModeSwitch";
+import "./Navbar.css";
 
 const CustomNavbar = () => {
   const [isNavbarVisible, setNavbarVisible] = useState(true);
