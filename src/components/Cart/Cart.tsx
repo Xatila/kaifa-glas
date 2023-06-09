@@ -68,7 +68,7 @@ export const Cart = ({ productsForCart }: CartProps) => {
           </DrawerBody>
 
           <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={onClear}>
+            <Button colorScheme="red" mr={3} onClick={onClear}>
               Изчисти количката
             </Button>
             <OrderModal data={productsForCart}></OrderModal>

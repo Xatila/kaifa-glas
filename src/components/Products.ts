@@ -1,22 +1,22 @@
-import iphone7 from "../ProductsPics/7.jpg";
-import iphone8 from "../ProductsPics/8.jpg";
-import iphoneX from "../ProductsPics/X.jpg";
-import iphoneXr from "../ProductsPics/Xr.jpg";
-import iphoneXs from "../ProductsPics/Xs.jpg";
-import iphoneXsMax from "../ProductsPics/XsMax.jpg";
-import iphone11pic from "../ProductsPics/11pic.jpg";
-import iphone11ProMax from "../ProductsPics/11ProMax.jpg";
-import iphoneSE2020 from "../ProductsPics/SE2020.jpg";
-import iphone12mini from "../ProductsPics/12Mini.jpg";
-import iphone12 from "../ProductsPics/12.jpg";
-import iphone12Pro from "../ProductsPics/12Pro.jpg";
-import iphone12ProMax from "../ProductsPics/12ProMax.jpg";
-import iphone13Mini from "../ProductsPics/13Mini.jpg";
-import iphone13 from "../ProductsPics/13.jpg";
-import iphone13Pro from "../ProductsPics/13Pro.jpg";
-import iphone13ProMax from "../ProductsPics/13ProMax.jpg";
-import iphoneSE2022 from "../ProductsPics/SE2022.jpg";
-import iphone14 from "../ProductsPics/14.jpg";
+import iphone7 from "../ProductsPics/7.png";
+import iphone8 from "../ProductsPics/8.png";
+import iphoneX from "../ProductsPics/X.png";
+import iphoneXr from "../ProductsPics/Xr.png";
+import iphoneXs from "../ProductsPics/Xs.png";
+import iphoneXsMax from "../ProductsPics/XsMax.png";
+import iphone11pic from "../ProductsPics/11.png";
+import iphone11ProMax from "../ProductsPics/11ProMax.png";
+import iphoneSE2020 from "../ProductsPics/SE2020.png";
+import iphone12mini from "../ProductsPics/12Mini.png";
+import iphone12 from "../ProductsPics/12.png";
+import iphone12Pro from "../ProductsPics/12Pro.png";
+import iphone12ProMax from "../ProductsPics/12ProMax.png";
+import iphone13Mini from "../ProductsPics/13Mini.png";
+import iphone13 from "../ProductsPics/13.png";
+import iphone13Pro from "../ProductsPics/13Pro.png";
+import iphone13ProMax from "../ProductsPics/13ProMax.png";
+import iphoneSE2022 from "../ProductsPics/SE2022.png";
+import iphone14 from "../ProductsPics/14.png";
 const firstPart =
   "Този стъклен протектор има 9D-21D (в зависимост от модела) цялостно покритие, изработен от Gorilla Glass и осигурява защита на вашия iPhone ";
 const secondPart =
@@ -159,7 +159,7 @@ const Products = [
   },
   {
     id: ++currentId,
-    image: iphoneSE2022,
+    image: iphoneSE2020,
     title: "Iphone SE(2022)",
     description: firstPart + `${models[++index]}` + secondPart,
   },
