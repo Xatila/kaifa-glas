@@ -18,7 +18,7 @@ const FreeDelivery = () => {
             Безплатна доставка за Студентски град и Велинград!
           </Highlight>
           <Flex justifyContent={"center"}>
-            <Image width={150} src={freeShipping} />
+            <Image marginTop={"-30px"} width={150} src={freeShipping} />
           </Flex>
         </Text>
       </Heading>

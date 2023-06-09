@@ -1,5 +1,6 @@
 import { Box, Center, Flex, Heading, Text } from "@chakra-ui/react";
 import { BsCheck2Circle } from "react-icons/bs";
+import OrderButton from "./OrderButton/OrderButton";
 const ThankYouPage = () => {
   return (
     <Center h="60vh">
@@ -7,6 +8,7 @@ const ThankYouPage = () => {
         <Flex direction="column" align="center">
           <BsCheck2Circle size={80} color={"green"} />
         </Flex>
+        <OrderButton />
         <Heading as="h1" size="xl" mb={4} me={2}>
           Благодарим за вашето доверие!
         </Heading>

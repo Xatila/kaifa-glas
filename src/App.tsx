@@ -10,7 +10,6 @@ import ProductDetails from "./components/ProductDetails/ProductDetails";
 import Cart from "./components/Cart/Cart";
 import FreeDelivery from "./components/FreeDelivery";
 import "bootstrap/dist/css/bootstrap.css";
-import MyNavBar from "./components/Navbar/MyNavBar";
 
 function App() {
   useEffect(() => {
