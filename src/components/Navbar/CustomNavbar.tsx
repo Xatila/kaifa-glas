@@ -30,7 +30,6 @@ const CustomNavbar = () => {
       fixed="top"
       collapseOnSelect
       expand="lg"
-      bg="dark"
       variant="dark"
       className={`custom-navbar ${isNavbarVisible ? "visible" : "hidden"} px-4`}
     >

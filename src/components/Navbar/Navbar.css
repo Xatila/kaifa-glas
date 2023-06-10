@@ -6,6 +6,7 @@
   width: 100%;
   z-index: 100;
   transition: top 0.6s, background-color 1s;
+  background-color: #1d1f2f
 }
 
 .custom-navbar.visible {
