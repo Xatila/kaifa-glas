@@ -44,7 +44,7 @@ const CustomNavbar = () => {
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="ml-auto">
+        <Nav className="ml-auto align-items-end">
           <Nav.Link onClick={() => navigate("/")}>Начало</Nav.Link>
           <Nav.Link onClick={() => navigate("/about")}>За нас</Nav.Link>
           <NavDropdown title="Поръчай" id="collasible-nav-dropdown">
