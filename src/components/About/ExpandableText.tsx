@@ -17,7 +17,7 @@ const ExpandableText = ({ children, maxChars = 516 }: Props) => {
     };
 
   return (
-    <div>
+    <div className="aboutInfo">
       {text} ...
       <button style={buttonStyle} onClick={() => setExpanded(!isExpanded)}>
         {isExpanded ? "По-малко" : "Повече"}
