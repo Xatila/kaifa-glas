@@ -15,8 +15,8 @@ import iphone13Mini from "../ProductsPics/13Mini.png";
 import iphone13 from "../ProductsPics/13.png";
 import iphone13Pro from "../ProductsPics/13Pro.png";
 import iphone13ProMax from "../ProductsPics/13ProMax.png";
-import iphoneSE2022 from "../ProductsPics/SE2022.png";
 import iphone14 from "../ProductsPics/14.png";
+
 const firstPart =
   "Този стъклен протектор има 9D-21D (в зависимост от модела) цялостно покритие, изработен от Gorilla Glass и осигурява защита на вашия iPhone ";
 const secondPart =
