@@ -13,17 +13,18 @@ import requestConfigToFb from "./RequestConfig";
 import { CartItemsProps } from "../components/Cart/CartItems";
 import ThankYouPage from "../components/ThankYouPage";
 import SorryPage from "../components/SorryPage";
+import { purchaseSendEmail } from "../Helpers/Email";
 
 firebase.initializeApp(requestConfigToFb);
 
-export interface FormValues {
+export type FormValues = {
   firstName: string;
   lastName: string;
   phone: string;
   city: string;
   address: string;
-  cartItems: CartItemsProps[];
-}
+  cartItems: CartItemsProps[] | string;
+};
 interface Props {
   cartItems: CartItemsProps[];
 }
@@ -51,6 +52,13 @@ const MyForm = ({ cartItems }: Props) => {
     try {
       setIsSubmitting(true);
       setSubmissionError(null);
+
+      purchaseSendEmail({
+        ...formValues,
+        cartItems: cartItems
+          .map((cartItem) => `${cartItem.heading} - ${cartItem.count} бр.`)
+          .join(", "),
+      });
 
       await firebase.firestore().collection("usersOrdersInfo").add(formValues);
 
