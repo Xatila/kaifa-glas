@@ -9,11 +9,14 @@ import {
   useDisclosure,
   Button,
   Badge,
+  Box,
+  Text,
 } from "@chakra-ui/react";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import CartItems, { CartItemsProps } from "./CartItems";
 import OrderModal from "../Modal/OrderModal";
+import { calculateTotalPrice } from "../../Helpers/TotalPrice";
 
 export interface CartProps {
   productsForCart: CartItemsProps[];
@@ -21,6 +24,10 @@ export interface CartProps {
 }
 
 export const Cart = ({ productsForCart, setProductsForCart }: CartProps) => {
+  let totalPrice = useMemo(
+    () => calculateTotalPrice(productsForCart),
+    [productsForCart]
+  );
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef(null);
   const onClear = () => {
@@ -67,12 +74,20 @@ export const Cart = ({ productsForCart, setProductsForCart }: CartProps) => {
               {productsForCart.length} {getProductsCount()}
             </Badge>
           </DrawerBody>
-
+          <Text pl={9} fontSize="xl" fontWeight="bold">
+            Общо:
+            <Badge ml="2" fontSize="0.8em" colorScheme="blue">
+              {totalPrice.toFixed(2)} лв
+            </Badge>
+          </Text>
           <DrawerFooter>
             <Button colorScheme="red" mr={3} onClick={onClear}>
               Изчисти количката
             </Button>
-            <OrderModal data={productsForCart} setData={setProductsForCart}></OrderModal>
+            <OrderModal
+              data={productsForCart}
+              setData={setProductsForCart}
+            ></OrderModal>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

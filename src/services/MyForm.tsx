@@ -31,7 +31,6 @@ interface Props {
 }
 
 const MyForm = ({ cartItems, setCartItems }: Props) => {
-  console.log(process.env.REACT_APP_EMAILJS_PUBLIC_KEY)
   const [formValues, setFormValues] = useState<FormValues>({
     firstName: "",
     lastName: "",
@@ -72,7 +71,7 @@ const MyForm = ({ cartItems, setCartItems }: Props) => {
         address: "",
         cartItems: [],
       });
-      setCartItems([])
+      setCartItems([]);
       setIsSubmitted(true);
     } catch (error) {
       console.error("Error submitting form:", error);

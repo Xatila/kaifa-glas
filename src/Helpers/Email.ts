@@ -13,5 +13,5 @@ export const purchaseSendEmail = (
     EmailJsKeys.SERVICE_KEY,
     EmailJsKeys.TEMPLATE_KEY,
     values,
-    EmailJsKeys.PUBLIC_KEY
+    EmailJsKeys.PUBLIC_KEY,
   );
