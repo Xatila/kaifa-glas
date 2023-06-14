@@ -31,6 +31,7 @@ interface Props {
 }
 
 const MyForm = ({ cartItems, setCartItems }: Props) => {
+  console.log(process.env.REACT_APP_EMAILJS_PUBLIC_KEY)
   const [formValues, setFormValues] = useState<FormValues>({
     firstName: "",
     lastName: "",
