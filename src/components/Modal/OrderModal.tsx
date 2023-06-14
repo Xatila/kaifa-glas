@@ -14,8 +14,9 @@ import { CartItemsProps } from "../Cart/CartItems";
 
 interface Props {
   data: CartItemsProps[];
+  setData: React.Dispatch<React.SetStateAction<CartItemsProps[]>>;
 }
-const OrderModal = ({ data }: Props) => {
+const OrderModal = ({ data, setData }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
@@ -37,7 +38,7 @@ const OrderModal = ({ data }: Props) => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Информация за поръчка</ModalHeader>
-          <MyForm cartItems={data}></MyForm>
+          <MyForm cartItems={data} setCartItems={setData}></MyForm>
           <ModalFooter>
             <Button onClick={onClose}>Затвори</Button>
           </ModalFooter>

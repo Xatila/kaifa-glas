@@ -27,9 +27,10 @@ export type FormValues = {
 };
 interface Props {
   cartItems: CartItemsProps[];
+  setCartItems: React.Dispatch<React.SetStateAction<CartItemsProps[]>>;
 }
 
-const MyForm = ({ cartItems }: Props) => {
+const MyForm = ({ cartItems, setCartItems }: Props) => {
   const [formValues, setFormValues] = useState<FormValues>({
     firstName: "",
     lastName: "",
@@ -70,7 +71,7 @@ const MyForm = ({ cartItems }: Props) => {
         address: "",
         cartItems: [],
       });
-      console.log("Form submitted successfully!");
+      setCartItems([])
       setIsSubmitted(true);
     } catch (error) {
       console.error("Error submitting form:", error);

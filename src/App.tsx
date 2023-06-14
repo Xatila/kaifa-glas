@@ -10,15 +10,14 @@ import ProductDetails from "./components/ProductDetails/ProductDetails";
 import Cart from "./components/Cart/Cart";
 import FreeDelivery from "./components/FreeDelivery";
 import "bootstrap/dist/css/bootstrap.css";
+import { CartItemsProps } from "./components/Cart/CartItems";
 
 function App() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   const [activeProductId, setActiveProductId] = useState<number | null>(null);
-  const [data, setData] = useState<
-    { id: number; heading: string; picture: string; count: number }[]
-  >([]);
+  const [data, setData] = useState<CartItemsProps[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toast = useToast();
   const handleMoreInfo = (productId: number) => {
@@ -70,7 +69,7 @@ function App() {
             zIndex="999"
           >
             <Box>
-              <Cart productsForCart={data} />
+              <Cart productsForCart={data} setProductsForCart={setData} />
             </Box>
           </HStack>
           <Routes>

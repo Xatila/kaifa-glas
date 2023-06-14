@@ -17,9 +17,10 @@ import OrderModal from "../Modal/OrderModal";
 
 export interface CartProps {
   productsForCart: CartItemsProps[];
+  setProductsForCart: React.Dispatch<React.SetStateAction<CartItemsProps[]>>;
 }
 
-export const Cart = ({ productsForCart }: CartProps) => {
+export const Cart = ({ productsForCart, setProductsForCart }: CartProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef(null);
   const onClear = () => {
@@ -71,7 +72,7 @@ export const Cart = ({ productsForCart }: CartProps) => {
             <Button colorScheme="red" mr={3} onClick={onClear}>
               Изчисти количката
             </Button>
-            <OrderModal data={productsForCart}></OrderModal>
+            <OrderModal data={productsForCart} setData={setProductsForCart}></OrderModal>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
