@@ -16,7 +16,7 @@ import SorryPage from "../components/SorryPage";
 
 firebase.initializeApp(requestConfigToFb);
 
-interface FormValues {
+export interface FormValues {
   firstName: string;
   lastName: string;
   phone: string;
