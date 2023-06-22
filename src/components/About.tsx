@@ -1,14 +1,13 @@
 import { Box, Flex, Heading, Image } from "@chakra-ui/react";
-import { AboutText } from "./AboutText";
-import picture1 from "../pictures/aboutPic1.jpg";
-import picture2 from "../pictures/aboutPic2.jpg";
+import { AboutText, getAboutImages } from "../Helpers/AboutHelper";
 import widePic from "../pictures/wide.jpg";
 import ExpandableText from "./ExpandableText";
-import giff from "../pictures/Aboutgiff.gif";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { scrollToTop } from "../Helpers/ScrollToTop";
 
 const About = () => {
+  const images = useMemo(() => getAboutImages(), []);
+
   useEffect(() => {
     scrollToTop();
   }, []);
@@ -36,30 +35,12 @@ const About = () => {
         justify="center"
         wrap="wrap"
       >
-        <Box w={{ base: "100%", sm: "50%" }}>
-          <Image
-            src={picture1}
-            alt="Picture 1"
-            mx="auto"
-            display={{ md: "block" }}
-          />
-        </Box>
-        <Box w={{ base: "100%", sm: "50%" }}>
-          <Image
-            src={picture2}
-            alt="Picture 2"
-            mx="auto"
-            display={{ md: "block" }}
-          />
-        </Box>
-        <Box w={{ base: "100%", sm: "50%" }}>
-          <Image
-            src={giff}
-            alt="Picture 2"
-            mx="auto"
-            display={{ md: "block" }}
-          />
-        </Box>
+        {!!images?.length &&
+          images.map(({ src, alt }) => (
+            <Box key={alt} w={{ base: "100%", sm: "50%" }}>
+              <Image src={src} alt={alt} mx="auto" display={{ md: "block" }} />
+            </Box>
+          ))}
       </Flex>
     </Box>
   );
