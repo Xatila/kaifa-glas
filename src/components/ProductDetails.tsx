@@ -52,7 +52,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
   const handleAddToCart = () => {
     if (product)
       onAddToCart(product?.id, product?.image, product?.title, quantity);
-    console.log(`Add ${quantity} product(s) to cart`);
   };
 
   return (

@@ -38,7 +38,6 @@ export const Cart = ({ productsForCart, setProductsForCart }: CartProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef(null);
   const onClear = () => {
-    console.log("Cart cleared.");
     productsForCart.length = 0;
     alert("Количката бе изчистена.");
     onClose();
