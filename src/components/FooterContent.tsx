@@ -1,33 +1,29 @@
-import { FaEnvelope, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
+import { useMemo } from "react";
+import { getFooterItems } from "../Helpers/FooterHelper";
 
 const FooterContent = () => {
+  const items = useMemo(() => getFooterItems(), []);
+
   return (
     <div className="col-md-6" style={{ padding: 10 }}>
       <h4>Намерете ни</h4>
       <ul className="contact-info list-unstyled">
-        <li className="d-flex align-items-center">
-          <FaMapMarkerAlt className="footer-icon" />
-          <span style={{ paddingLeft: 10 }}>
-            ул. "Атанас Манчев" 18, 1700 Студентски Комплекс, София, България
-          </span>
-        </li>
-        <li className="d-flex align-items-center">
-          <FaPhone className="footer-icon" />
-          <a style={{ paddingLeft: 10 }} href="tel:0897256650">
-            {" "}
-            +359 897256650
-          </a>
-        </li>
-        <li className="d-flex align-items-center">
-          <FaEnvelope className="footer-icon" />
-          <a
-            style={{ paddingLeft: 10 }}
-            href="mailto:kevinbalievv@gmail.com"
-            className="text-light"
-          >
-            kevinbalievv@gmail.com
-          </a>
-        </li>
+        {!!items?.length &&
+          items.map(({ icon, href, className, content }) => (
+            <li className="d-flex align-items-center">
+              {icon}
+              {!href && <span style={{ paddingLeft: 10 }}>{content}</span>}
+              {!!href && (
+                <a
+                  style={{ paddingLeft: 10 }}
+                  href={href}
+                  className={!!className ? className : ""}
+                >
+                  {content}
+                </a>
+              )}
+            </li>
+          ))}
       </ul>
     </div>
   );
