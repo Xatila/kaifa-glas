@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   Box,
   Button,
@@ -14,6 +14,7 @@ import { CartItemsProps } from "../components/CartItems";
 import ThankYouPage from "../components/ThankYouPage";
 import SorryPage from "../components/SorryPage";
 import { purchaseSendEmail } from "../Helpers/Email";
+import { getFormInputs } from "../Helpers/FormHelper";
 
 firebase.initializeApp(requestConfigToFb);
 
@@ -80,6 +81,7 @@ const MyForm = ({ cartItems, setCartItems }: Props) => {
       setIsSubmitting(false);
     }
   };
+
   const handleChangeNames = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     const onlyLetters = value.replace(/[^a-zA-Zа-яА-Я]/g, "");
@@ -94,6 +96,17 @@ const MyForm = ({ cartItems, setCartItems }: Props) => {
     const onlyTenNumbers = value.replace(/\D/g, "");
     setFormValues((prevValues) => ({ ...prevValues, [name]: onlyTenNumbers }));
   };
+
+  const inputs = useMemo(
+    () =>
+      getFormInputs(
+        formValues,
+        handleChangeNames,
+        handleChangeAddress,
+        handleChangePhone
+      ),
+    [formValues]
+  );
 
   if (isSubmitted) {
     return <ThankYouPage />;
@@ -111,77 +124,42 @@ const MyForm = ({ cartItems, setCartItems }: Props) => {
       border="1px solid gray"
       borderRadius="md"
     >
-      <FormControl isRequired>
-        <FormLabel htmlFor="name">Име</FormLabel>
-        <Input
-          type="name"
-          id="firstName"
-          name="firstName"
-          value={formValues.firstName}
-          onChange={handleChangeNames}
-          minLength={3}
-          maxLength={20}
-          placeholder="Иван"
-          className="light-placeholder"
-        />
-      </FormControl>
-      <FormControl isRequired marginTop="10px">
-        <FormLabel htmlFor="name">Фамилия</FormLabel>
-        <Input
-          type="name"
-          id="lastName"
-          name="lastName"
-          value={formValues.lastName}
-          onChange={handleChangeNames}
-          minLength={3}
-          maxLength={20}
-          placeholder="Иванов"
-          className="light-placeholder"
-        />
-      </FormControl>
-      <FormControl isRequired marginTop="10px">
-        <FormLabel htmlFor="number">Телефон</FormLabel>
-        <Input
-          type="text"
-          id="phone"
-          name="phone"
-          minLength={10}
-          maxLength={10}
-          value={formValues.phone}
-          onChange={handleChangePhone}
-          placeholder="0898989898"
-          className="light-placeholder"
-        />
-      </FormControl>
-      <FormControl isRequired marginTop="10px">
-        <FormLabel htmlFor="city">Град/Село</FormLabel>
-        <Input
-          type="text"
-          id="city"
-          name="city"
-          value={formValues.city}
-          onChange={handleChangeNames}
-          minLength={3}
-          maxLength={18}
-          placeholder="София"
-          className="light-placeholder"
-        />
-      </FormControl>
+      {!!inputs?.length &&
+        inputs.map(
+          ({
+            marginTop,
+            htmlFor,
+            label,
+            type,
+            id,
+            name,
+            value,
+            onChange,
+            minLength,
+            maxLength,
+            placeholder,
+          }) => (
+            <FormControl
+              key={id}
+              isRequired
+              marginTop={marginTop ? "10px" : ""}
+            >
+              <FormLabel htmlFor={htmlFor}>{label}</FormLabel>
+              <Input
+                type={type}
+                id={id}
+                name={name}
+                value={value}
+                onChange={onChange}
+                minLength={minLength}
+                maxLength={maxLength}
+                placeholder={placeholder}
+                className="light-placeholder"
+              />
+            </FormControl>
+          )
+        )}
 
-      <FormControl isRequired marginTop="10px">
-        <FormLabel htmlFor="city">Адрес</FormLabel>
-        <Input
-          type="text"
-          id="address"
-          name="address"
-          value={formValues.address}
-          onChange={handleChangeAddress}
-          minLength={8}
-          maxLength={90}
-          placeholder="ул. Васил Левски 56, жк. Младост 1"
-          className="light-placeholder"
-        />
-      </FormControl>
       <Button
         type="submit"
         isLoading={isSubmitting}
