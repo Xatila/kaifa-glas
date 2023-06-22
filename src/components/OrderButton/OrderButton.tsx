@@ -1,12 +1,20 @@
-import React, { useRef } from "react";
+import { useEffect, useRef } from "react";
 import "./OrderButton.css";
 
 const OrderButton = () => {
   const ref = useRef<HTMLButtonElement>(null);
-  setTimeout(() => {
-    let butt = ref.current;
-    butt?.classList.remove("animate");
-  }, 7000);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      let butt = ref.current;
+      butt?.classList.remove("animate");
+    }, 7000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
+
   return (
     <button ref={ref} className="order animate">
       <span className="default">

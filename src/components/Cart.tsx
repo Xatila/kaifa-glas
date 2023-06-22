@@ -9,14 +9,15 @@ import {
   useDisclosure,
   Button,
   Badge,
-  Box,
   Text,
 } from "@chakra-ui/react";
 import { useMemo, useRef } from "react";
 import { FaShoppingCart } from "react-icons/fa";
-import CartItems, { CartItemsProps } from "./CartItems";
-import OrderModal from "../Modal/OrderModal";
-import { calculateTotalPrice } from "../../Helpers/TotalPrice";
+import { CartItemsProps } from "./CartItems";
+import OrderModal from "./OrderModal";
+import { calculateTotalPrice } from "../Helpers/TotalPrice";
+import { getProductsCount } from "../Helpers/ProductsHelper";
+import CartProductsContainer from "./CartProductsContainer";
 
 export interface CartProps {
   productsForCart: CartItemsProps[];
@@ -24,6 +25,12 @@ export interface CartProps {
 }
 
 export const Cart = ({ productsForCart, setProductsForCart }: CartProps) => {
+  const productsCount = useMemo(
+    () => getProductsCount(productsForCart),
+    [productsForCart.length]
+  );
+
+  const productsCountInfo = `${productsForCart.length} ${productsCount}`;
   let totalPrice = useMemo(
     () => calculateTotalPrice(productsForCart),
     [productsForCart]
@@ -31,17 +38,9 @@ export const Cart = ({ productsForCart, setProductsForCart }: CartProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef(null);
   const onClear = () => {
-    console.log("Cart cleared.");
-    productsForCart.length = 0;
+    setProductsForCart([]);
     alert("Количката бе изчистена.");
     onClose();
-  };
-  const getProductsCount = () => {
-    return productsForCart.length === 1
-      ? "продукт"
-      : productsForCart.length === 0
-      ? "продукти"
-      : "продукта";
   };
 
   return (
@@ -61,18 +60,8 @@ export const Cart = ({ productsForCart, setProductsForCart }: CartProps) => {
           <DrawerHeader>Вашата количка</DrawerHeader>
 
           <DrawerBody>
-            {productsForCart.map((p) => (
-              <CartItems
-                key={p.id}
-                id={p.id}
-                picture={p.picture}
-                heading={p.heading + " Glass"}
-                count={p.count}
-              />
-            ))}
-            <Badge>
-              {productsForCart.length} {getProductsCount()}
-            </Badge>
+            <CartProductsContainer productsForCart={productsForCart} />
+            <Badge>{productsCountInfo}</Badge>
           </DrawerBody>
           <Text pl={9} fontSize="xl" fontWeight="bold">
             Общо:

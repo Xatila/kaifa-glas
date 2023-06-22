@@ -1,19 +1,13 @@
-import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
-} from "@chakra-ui/react";
+import React, { useMemo, useState } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import requestConfigToFb from "./RequestConfig";
-import { CartItemsProps } from "../components/Cart/CartItems";
+import { CartItemsProps } from "../components/CartItems";
 import ThankYouPage from "../components/ThankYouPage";
 import SorryPage from "../components/SorryPage";
-import { purchaseSendEmail } from "../Helpers/Email";
+import { getFormInputs } from "../Helpers/FormHelper";
+import { handleSubmit } from "../Helpers/SubmitHelper";
+import FormView from "../components/FormView";
 
 firebase.initializeApp(requestConfigToFb);
 
@@ -43,43 +37,18 @@ const MyForm = ({ cartItems, setCartItems }: Props) => {
   const [submissionError, setSubmissionError] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    if (cartItems.length < 1) {
-      console.error("Error submitting form: Cart is empty.");
-      setSubmissionError("Cart is empty. Please add items before submitting.");
-      return;
-    }
-    try {
-      setIsSubmitting(true);
-      setSubmissionError(null);
+  const onSubmit = (event: React.FormEvent) =>
+    handleSubmit(
+      event,
+      cartItems,
+      setSubmissionError,
+      setIsSubmitting,
+      formValues,
+      setFormValues,
+      setCartItems,
+      setIsSubmitted
+    );
 
-      purchaseSendEmail({
-        ...formValues,
-        cartItems: cartItems
-          .map((cartItem) => `${cartItem.heading} - ${cartItem.count} бр.`)
-          .join(", "),
-      });
-
-      await firebase.firestore().collection("usersOrdersInfo").add(formValues);
-
-      setFormValues({
-        firstName: "",
-        lastName: "",
-        city: "",
-        phone: "",
-        address: "",
-        cartItems: [],
-      });
-      setCartItems([]);
-      setIsSubmitted(true);
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      setSubmissionError("Error submitting form. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
   const handleChangeNames = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     const onlyLetters = value.replace(/[^a-zA-Zа-яА-Я]/g, "");
@@ -95,107 +64,30 @@ const MyForm = ({ cartItems, setCartItems }: Props) => {
     setFormValues((prevValues) => ({ ...prevValues, [name]: onlyTenNumbers }));
   };
 
-  if (isSubmitted) {
-    return <ThankYouPage />;
-  }
-  if (submissionError) {
-    return <SorryPage />;
-  }
-  return (
-    <Box
-      as="form"
-      onSubmit={handleSubmit}
-      width="300px"
-      margin="auto"
-      padding="20px"
-      border="1px solid gray"
-      borderRadius="md"
-    >
-      <FormControl isRequired>
-        <FormLabel htmlFor="name">Име</FormLabel>
-        <Input
-          type="name"
-          id="firstName"
-          name="firstName"
-          value={formValues.firstName}
-          onChange={handleChangeNames}
-          minLength={3}
-          maxLength={20}
-          placeholder="Иван"
-          className="light-placeholder"
-        />
-      </FormControl>
-      <FormControl isRequired marginTop="10px">
-        <FormLabel htmlFor="name">Фамилия</FormLabel>
-        <Input
-          type="name"
-          id="lastName"
-          name="lastName"
-          value={formValues.lastName}
-          onChange={handleChangeNames}
-          minLength={3}
-          maxLength={20}
-          placeholder="Иванов"
-          className="light-placeholder"
-        />
-      </FormControl>
-      <FormControl isRequired marginTop="10px">
-        <FormLabel htmlFor="number">Телефон</FormLabel>
-        <Input
-          type="text"
-          id="phone"
-          name="phone"
-          minLength={10}
-          maxLength={10}
-          value={formValues.phone}
-          onChange={handleChangePhone}
-          placeholder="0898989898"
-          className="light-placeholder"
-        />
-      </FormControl>
-      <FormControl isRequired marginTop="10px">
-        <FormLabel htmlFor="city">Град/Село</FormLabel>
-        <Input
-          type="text"
-          id="city"
-          name="city"
-          value={formValues.city}
-          onChange={handleChangeNames}
-          minLength={3}
-          maxLength={18}
-          placeholder="София"
-          className="light-placeholder"
-        />
-      </FormControl>
+  const inputs = useMemo(
+    () =>
+      getFormInputs(
+        formValues,
+        handleChangeNames,
+        handleChangeAddress,
+        handleChangePhone
+      ),
+    [formValues]
+  );
 
-      <FormControl isRequired marginTop="10px">
-        <FormLabel htmlFor="city">Адрес</FormLabel>
-        <Input
-          type="text"
-          id="address"
-          name="address"
-          value={formValues.address}
-          onChange={handleChangeAddress}
-          minLength={8}
-          maxLength={90}
-          placeholder="ул. Васил Левски 56, жк. Младост 1"
-          className="light-placeholder"
+  return (
+    <>
+      {isSubmitted && <ThankYouPage />}
+      {submissionError && <SorryPage />}
+      {!isSubmitted && (
+        <FormView
+          inputs={inputs}
+          onSubmit={onSubmit}
+          isSubmitting={isSubmitting}
+          submissionError={submissionError}
         />
-      </FormControl>
-      <Button
-        type="submit"
-        isLoading={isSubmitting}
-        loadingText="Submitting"
-        marginTop="20px"
-        width="full"
-        colorScheme="teal"
-      >
-        Поръчай
-      </Button>
-      {submissionError && (
-        <FormErrorMessage marginTop="10px">{submissionError}</FormErrorMessage>
       )}
-    </Box>
+    </>
   );
 };
 

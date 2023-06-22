@@ -9,8 +9,8 @@ import {
   ModalOverlay,
 } from "@chakra-ui/modal";
 import React from "react";
-import MyForm from "../../services/MyForm";
-import { CartItemsProps } from "../Cart/CartItems";
+import MyForm from "../services/MyForm";
+import { CartItemsProps } from "./CartItems";
 
 interface Props {
   data: CartItemsProps[];
