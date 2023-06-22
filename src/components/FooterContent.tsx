@@ -10,7 +10,7 @@ const FooterContent = () => {
       <ul className="contact-info list-unstyled">
         {!!items?.length &&
           items.map(({ icon, href, className, content }) => (
-            <li className="d-flex align-items-center">
+            <li key={content} className="d-flex align-items-center">
               {icon}
               {!href && <span style={{ paddingLeft: 10 }}>{content}</span>}
               {!!href && (
