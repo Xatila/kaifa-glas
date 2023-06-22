@@ -57,16 +57,31 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl">
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent
+        style={{
+          display: "flex",
+          alignSelf: "center",
+          alignItems: "center",
+          height: "100%",
+          maxHeight: "90vh",
+          overflow: "auto",
+        }}
+      >
         <ModalHeader>{product?.title}</ModalHeader>
         <ModalBody>
           <div className="row">
-            <div className="col-md-6">
+            <div
+              className="col-md-6"
+              style={{ display: "flex", justifyContent: "center" }}
+            >
               {product?.image && (
                 <img
                   src={product.image}
                   alt={product.title}
                   className="img-fluid"
+                  style={{
+                    maxWidth: "150px",
+                  }}
                 />
               )}
             </div>
