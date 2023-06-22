@@ -1,11 +1,25 @@
 import { FormValues } from "../services/MyForm";
 
+export type FormInputType = {
+  marginTop: boolean;
+  htmlFor: string;
+  label: string;
+  type: string;
+  id: string;
+  name: string;
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  minLength: number;
+  maxLength: number;
+  placeholder: string;
+};
+
 export const getFormInputs = (
   formValues: FormValues,
   handleChangeNames: (event: React.ChangeEvent<HTMLInputElement>) => void,
   handleChangeAddress: (event: React.ChangeEvent<HTMLInputElement>) => void,
   handleChangePhone: (event: React.ChangeEvent<HTMLInputElement>) => void
-) => [
+): FormInputType[] => [
   {
     marginTop: true,
     htmlFor: "name",

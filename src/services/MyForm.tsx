@@ -1,20 +1,13 @@
 import React, { useMemo, useState } from "react";
-import {
-  Box,
-  Button,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
-} from "@chakra-ui/react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import requestConfigToFb from "./RequestConfig";
 import { CartItemsProps } from "../components/CartItems";
 import ThankYouPage from "../components/ThankYouPage";
 import SorryPage from "../components/SorryPage";
-import { purchaseSendEmail } from "../Helpers/Email";
 import { getFormInputs } from "../Helpers/FormHelper";
+import { handleSubmit } from "../Helpers/SubmitHelper";
+import FormView from "../components/FormView";
 
 firebase.initializeApp(requestConfigToFb);
 
@@ -44,43 +37,17 @@ const MyForm = ({ cartItems, setCartItems }: Props) => {
   const [submissionError, setSubmissionError] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    if (cartItems.length < 1) {
-      console.error("Error submitting form: Cart is empty.");
-      setSubmissionError("Cart is empty. Please add items before submitting.");
-      return;
-    }
-    try {
-      setIsSubmitting(true);
-      setSubmissionError(null);
-
-      purchaseSendEmail({
-        ...formValues,
-        cartItems: cartItems
-          .map((cartItem) => `${cartItem.heading} - ${cartItem.count} бр.`)
-          .join(", "),
-      });
-
-      await firebase.firestore().collection("usersOrdersInfo").add(formValues);
-
-      setFormValues({
-        firstName: "",
-        lastName: "",
-        city: "",
-        phone: "",
-        address: "",
-        cartItems: [],
-      });
-      setCartItems([]);
-      setIsSubmitted(true);
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      setSubmissionError("Error submitting form. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  const onSubmit = (event: React.FormEvent) =>
+    handleSubmit(
+      event,
+      cartItems,
+      setSubmissionError,
+      setIsSubmitting,
+      formValues,
+      setFormValues,
+      setCartItems,
+      setIsSubmitted
+    );
 
   const handleChangeNames = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -108,72 +75,19 @@ const MyForm = ({ cartItems, setCartItems }: Props) => {
     [formValues]
   );
 
-  if (isSubmitted) {
-    return <ThankYouPage />;
-  }
-  if (submissionError) {
-    return <SorryPage />;
-  }
   return (
-    <Box
-      as="form"
-      onSubmit={handleSubmit}
-      width="300px"
-      margin="auto"
-      padding="20px"
-      border="1px solid gray"
-      borderRadius="md"
-    >
-      {!!inputs?.length &&
-        inputs.map(
-          ({
-            marginTop,
-            htmlFor,
-            label,
-            type,
-            id,
-            name,
-            value,
-            onChange,
-            minLength,
-            maxLength,
-            placeholder,
-          }) => (
-            <FormControl
-              key={id}
-              isRequired
-              marginTop={marginTop ? "10px" : ""}
-            >
-              <FormLabel htmlFor={htmlFor}>{label}</FormLabel>
-              <Input
-                type={type}
-                id={id}
-                name={name}
-                value={value}
-                onChange={onChange}
-                minLength={minLength}
-                maxLength={maxLength}
-                placeholder={placeholder}
-                className="light-placeholder"
-              />
-            </FormControl>
-          )
-        )}
-
-      <Button
-        type="submit"
-        isLoading={isSubmitting}
-        loadingText="Submitting"
-        marginTop="20px"
-        width="full"
-        colorScheme="teal"
-      >
-        Поръчай
-      </Button>
-      {submissionError && (
-        <FormErrorMessage marginTop="10px">{submissionError}</FormErrorMessage>
+    <>
+      {isSubmitted && <ThankYouPage />}
+      {submissionError && <SorryPage />}
+      {!isSubmitted && (
+        <FormView
+          inputs={inputs}
+          onSubmit={onSubmit}
+          isSubmitting={isSubmitting}
+          submissionError={submissionError}
+        />
       )}
-    </Box>
+    </>
   );
 };
 
