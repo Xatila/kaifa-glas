@@ -16,6 +16,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import CartItems, { CartItemsProps } from "./CartItems";
 import OrderModal from "./OrderModal";
 import { calculateTotalPrice } from "../Helpers/TotalPrice";
+import { getProductsCount } from "../Helpers/ProductsHelper";
 
 export interface CartProps {
   productsForCart: CartItemsProps[];
@@ -23,6 +24,12 @@ export interface CartProps {
 }
 
 export const Cart = ({ productsForCart, setProductsForCart }: CartProps) => {
+  const productsCount = useMemo(
+    () => getProductsCount(productsForCart),
+    [productsForCart.length]
+  );
+
+  const productsCountInfo = `${productsForCart.length} ${productsCount}`;
   let totalPrice = useMemo(
     () => calculateTotalPrice(productsForCart),
     [productsForCart]
@@ -34,13 +41,6 @@ export const Cart = ({ productsForCart, setProductsForCart }: CartProps) => {
     productsForCart.length = 0;
     alert("Количката бе изчистена.");
     onClose();
-  };
-  const getProductsCount = () => {
-    return productsForCart.length === 1
-      ? "продукт"
-      : productsForCart.length === 0
-      ? "продукти"
-      : "продукта";
   };
 
   return (
@@ -69,9 +69,7 @@ export const Cart = ({ productsForCart, setProductsForCart }: CartProps) => {
                 count={p.count}
               />
             ))}
-            <Badge>
-              {productsForCart.length} {getProductsCount()}
-            </Badge>
+            <Badge>{productsCountInfo}</Badge>
           </DrawerBody>
           <Text pl={9} fontSize="xl" fontWeight="bold">
             Общо:
