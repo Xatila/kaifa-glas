@@ -13,10 +13,11 @@ import {
 } from "@chakra-ui/react";
 import { useMemo, useRef } from "react";
 import { FaShoppingCart } from "react-icons/fa";
-import CartItems, { CartItemsProps } from "./CartItems";
+import { CartItemsProps } from "./CartItems";
 import OrderModal from "./OrderModal";
 import { calculateTotalPrice } from "../Helpers/TotalPrice";
 import { getProductsCount } from "../Helpers/ProductsHelper";
+import CartProductsContainer from "./CartProductsContainer";
 
 export interface CartProps {
   productsForCart: CartItemsProps[];
@@ -60,15 +61,7 @@ export const Cart = ({ productsForCart, setProductsForCart }: CartProps) => {
           <DrawerHeader>Вашата количка</DrawerHeader>
 
           <DrawerBody>
-            {productsForCart.map((p) => (
-              <CartItems
-                key={p.id}
-                id={p.id}
-                picture={p.picture}
-                heading={p.heading + " Glass"}
-                count={p.count}
-              />
-            ))}
+            <CartProductsContainer productsForCart={productsForCart} />
             <Badge>{productsCountInfo}</Badge>
           </DrawerBody>
           <Text pl={9} fontSize="xl" fontWeight="bold">
