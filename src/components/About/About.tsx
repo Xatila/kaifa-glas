@@ -1,15 +1,16 @@
-import { useEffect } from "react";
-import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Image } from "@chakra-ui/react";
 import { AboutText } from "../AboutText";
 import picture1 from "../../pictures/aboutPic1.jpg";
 import picture2 from "../../pictures/aboutPic2.jpg";
 import widePic from "../../pictures/wide.jpg";
 import ExpandableText from "./ExpandableText";
 import giff from "../../pictures/Aboutgiff.gif";
+import { useEffect } from "react";
+import { scrollToTop } from "../../Helpers/ScrollToTop";
 
 const About = () => {
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollToTop();
   }, []);
 
   return (
