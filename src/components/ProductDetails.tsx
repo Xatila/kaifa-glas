@@ -72,7 +72,10 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
           <div className="row">
             <div
               className="col-md-6"
-              style={{ display: "flex", justifyContent: "center" }}
+              style={{
+                display: isMobile ? "flex" : "block",
+                justifyContent: "center",
+              }}
             >
               {product?.image && (
                 <img
@@ -80,7 +83,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                   alt={product.title}
                   className="img-fluid"
                   style={{
-                    maxWidth: "150px",
+                    maxWidth: isMobile ? "150px" : "",
                   }}
                 />
               )}
