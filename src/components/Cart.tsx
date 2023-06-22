@@ -9,14 +9,13 @@ import {
   useDisclosure,
   Button,
   Badge,
-  Box,
   Text,
 } from "@chakra-ui/react";
 import { useMemo, useRef } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import CartItems, { CartItemsProps } from "./CartItems";
-import OrderModal from "../Modal/OrderModal";
-import { calculateTotalPrice } from "../../Helpers/TotalPrice";
+import OrderModal from "./OrderModal";
+import { calculateTotalPrice } from "../Helpers/TotalPrice";
 
 export interface CartProps {
   productsForCart: CartItemsProps[];

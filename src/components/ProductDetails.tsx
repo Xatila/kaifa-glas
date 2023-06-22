@@ -8,9 +8,8 @@ import {
   ModalBody,
   ModalFooter,
 } from "@chakra-ui/react";
-import { auto } from "@popperjs/core";
 import React, { useState } from "react";
-import useIsMobile from "../../hooks/useIsMobile";
+import useIsMobile from "../hooks/useIsMobile";
 
 interface Product {
   id: number;

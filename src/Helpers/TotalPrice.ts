@@ -1,4 +1,4 @@
-import { CartItemsProps } from "../components/Cart/CartItems";
+import { CartItemsProps } from "../components/CartItems";
 
 export const calculateTotalPrice = (cartItems: CartItemsProps[]) => {
   let totalPrice = 0;

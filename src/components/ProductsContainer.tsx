@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import FreeDelivery from "./FreeDelivery";
 import Product from "./Product/Product";
-import ProductDetails from "./ProductDetails/ProductDetails";
+import ProductDetails from "./ProductDetails";
 import Products from "./Products";
 import { AppContext } from "../contexts/AppContext";
 import { handleMoreInfo } from "../Helpers/ProductsHelper";

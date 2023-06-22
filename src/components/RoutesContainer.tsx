@@ -1,7 +1,7 @@
 import { Box, HStack } from "@chakra-ui/react";
 import { Routes, Route } from "react-router-dom";
-import About from "./About/About";
-import Cart from "./Cart/Cart";
+import About from "./About";
+import Cart from "./Cart";
 import ProductsContainer from "./ProductsContainer";
 import { AppContext } from "../contexts/AppContext";
 import { useContext } from "react";

@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { CartItemsProps } from "../components/Cart/CartItems";
+import { CartItemsProps } from "../components/CartItems";
 
 interface AppContextProps {
   activeProductId: number | null;

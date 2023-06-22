@@ -10,7 +10,7 @@ import {
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import requestConfigToFb from "./RequestConfig";
-import { CartItemsProps } from "../components/Cart/CartItems";
+import { CartItemsProps } from "../components/CartItems";
 import ThankYouPage from "../components/ThankYouPage";
 import SorryPage from "../components/SorryPage";
 import { purchaseSendEmail } from "../Helpers/Email";
