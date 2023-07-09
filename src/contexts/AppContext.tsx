@@ -8,7 +8,6 @@ interface AppContextProps {
   setData: React.Dispatch<React.SetStateAction<CartItemsProps[]>>;
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  toast: unknown;
 }
 
 export const AppContext = createContext<AppContextProps>({
@@ -18,5 +17,4 @@ export const AppContext = createContext<AppContextProps>({
   setData: () => {},
   isModalOpen: false,
   setIsModalOpen: () => {},
-  toast: () => {},
 });

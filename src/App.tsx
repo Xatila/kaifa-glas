@@ -28,7 +28,6 @@ function App() {
         setData,
         isModalOpen,
         setIsModalOpen,
-        toast,
       }}
     >
       <ChakraProvider>

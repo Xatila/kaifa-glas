@@ -7,6 +7,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import useIsMobile from "../hooks/useIsMobile";
@@ -38,7 +39,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
 }) => {
   const [quantity, setQuantity] = useState(1);
   const isMobile = useIsMobile();
-
+  const toast = useToast();
   const handleIncreaseQuantity = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
   };
@@ -52,6 +53,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
   const handleAddToCart = () => {
     if (product)
       onAddToCart(product?.id, product?.image, product?.title, quantity);
+    toast({
+      title: "Стъклен протектор за " + product?.title,
+      description: "Беше успешно добавен в количката",
+      status: "success",
+      duration: 1900,
+      isClosable: true,
+    });
   };
 
   return (

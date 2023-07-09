@@ -1,5 +1,6 @@
 import { Badge } from "react-bootstrap";
 import "./Product.css";
+import { useToast } from "@chakra-ui/react";
 
 interface ProductParts {
   id: number;
@@ -29,7 +30,7 @@ const Product = ({
   const handleMoreInfoClick = () => {
     onMoreInfo(id);
   };
-
+  const toast = useToast();
   const isActiveProduct = id === activeProductId;
 
   return (
@@ -49,7 +50,16 @@ const Product = ({
             </button>
             <button
               className="btn-add-to-cart"
-              onClick={() => onAddToCart(id, image, title, 1)}
+              onClick={() => {
+                onAddToCart(id, image, title, 1);
+                toast({
+                  title: "Стъклен протектор за " + title,
+                  description: "Беше успешно добавен в количката",
+                  status: "success",
+                  duration: 1900,
+                  isClosable: true,
+                });
+              }}
             >
               Купи
             </button>
